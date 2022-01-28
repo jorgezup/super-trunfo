@@ -5,20 +5,21 @@ import Input from './Input';
 import Button from './Button';
 
 class Form extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      name: '',
-    };
-  }
-
-  handleChange =({ target: { value, name } }) => {
-    this.setState({ [name]: value });
-  }
-
   render() {
-    const { name } = this.state;
+    const {
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+      // hasTrunfo,
+      isSaveButtonDisabled,
+      onInputChange,
+      onSaveButtonClick,
+    } = this.props;
     return (
       <form action="">
         <div>Nome</div>
@@ -35,6 +36,7 @@ class Form extends React.Component {
           id=""
           cols="30"
           rows="10"
+          onChange={ onInputChange }
           data-testid="description-input"
           value={ cardDescription }
         />
@@ -71,7 +73,12 @@ class Form extends React.Component {
           testId="image-input"
         />
         <div>Selecione a raridade</div>
-        <select name="rare-input" data-testid="rare-input" value={ cardRare }>
+        <select
+          name="rare-input"
+          onChange={ onInputChange }
+          data-testid="rare-input"
+          value={ cardRare }
+        >
           <option value="normal">Normal</option>
           <option value="raro">Raro</option>
           <option value="muito raro">Muito raro</option>
@@ -80,6 +87,7 @@ class Form extends React.Component {
         <input
           type="checkbox"
           name="trunfo"
+          onChange={ onInputChange }
           data-testid="trunfo-input"
           value={ cardTrunfo }
         />
@@ -98,13 +106,14 @@ class Form extends React.Component {
 
 Form.propTypes = {
   cardName: PropTypes.string.isRequired,
+  cardDescription: PropTypes.string.isRequired,
   cardAttr1: PropTypes.string.isRequired,
   cardAttr2: PropTypes.string.isRequired,
   cardAttr3: PropTypes.string.isRequired,
   cardImage: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.bool.isRequired,
-  hasTrunfo: PropTypes.bool.isRequired,
+  // hasTrunfo: PropTypes.bool.isRequired,
   isSaveButtonDisabled: PropTypes.bool.isRequired,
   onInputChange: PropTypes.func.isRequired,
   onSaveButtonClick: PropTypes.func.isRequired,
