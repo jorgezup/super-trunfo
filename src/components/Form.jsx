@@ -20,6 +20,8 @@ class Form extends React.Component {
       onInputChange,
       onSaveButtonClick,
     } = this.props;
+    // console.log(this.props);
+    console.log(cardName);
     return (
       <form action="">
         <div>Nome</div>
@@ -27,12 +29,12 @@ class Form extends React.Component {
           name="name"
           value={ cardName }
           type="text"
-          onInputChange={ onInputChange }
+          inputChange={ onInputChange }
           testId="name-input"
         />
         <div>Descrição</div>
         <textarea
-          name=""
+          name="description"
           id=""
           cols="30"
           rows="10"
@@ -79,6 +81,7 @@ class Form extends React.Component {
           data-testid="rare-input"
           value={ cardRare }
         >
+          <option value=""> </option>
           <option value="normal">Normal</option>
           <option value="raro">Raro</option>
           <option value="muito raro">Muito raro</option>
