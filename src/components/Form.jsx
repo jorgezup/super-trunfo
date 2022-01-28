@@ -24,54 +24,73 @@ class Form extends React.Component {
         <div>Nome</div>
         <Input
           name="name"
-          value={ name }
+          value={ cardName }
           type="text"
-          onInputChange={ this.handleChange }
+          onInputChange={ onInputChange }
           testId="name-input"
         />
         <div>Descrição</div>
-        <textarea name="" id="" cols="30" rows="10" data-testid="description-input" />
+        <textarea
+          name=""
+          id=""
+          cols="30"
+          rows="10"
+          data-testid="description-input"
+          value={ cardDescription }
+        />
         <div>Attr01</div>
         <Input
           name="attr01"
-          value={ name }
+          value={ cardAttr1 }
           type="number"
-          onInputChange={ this.handleChange }
+          onInputChange={ onInputChange }
           testId="attr1-input"
         />
         <div>Attr02</div>
         <Input
           name="attr02"
-          value={ name }
+          value={ cardAttr2 }
           type="number"
-          onInputChange={ this.handleChange }
+          onInputChange={ onInputChange }
           testId="attr2-input"
         />
         <div>Attr03</div>
         <Input
           name="attr03"
-          value={ name }
+          value={ cardAttr3 }
           type="number"
-          onInputChange={ this.handleChange }
+          onInputChange={ onInputChange }
           testId="attr3-input"
         />
         <div>Image</div>
         <Input
           name="image"
-          value={ name }
+          value={ cardImage }
           type="text"
-          onInputChange={ this.handleChange }
+          onInputChange={ onInputChange }
           testId="image-input"
         />
         <div>Selecione a raridade</div>
-        <select name="rare-input" data-testid="rare-input">
+        <select name="rare-input" data-testid="rare-input" value={ cardRare }>
           <option value="normal">Normal</option>
           <option value="raro">Raro</option>
           <option value="muito raro">Muito raro</option>
         </select>
         <div>É super trunfo</div>
-        <input type="checkbox" name="trunfo" data-testid="trunfo-input" />
-        <Button testId="save-button">Salvar</Button>
+        <input
+          type="checkbox"
+          name="trunfo"
+          data-testid="trunfo-input"
+          value={ cardTrunfo }
+        />
+        <Button
+          testId="save-button"
+          disabled={ isSaveButtonDisabled }
+          onClick={ onSaveButtonClick }
+        >
+          Salvar
+
+        </Button>
       </form>
     );
   }
