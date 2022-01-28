@@ -88,8 +88,8 @@ class Form extends React.Component {
           type="checkbox"
           name="trunfo"
           onChange={ onInputChange }
+          checked={ cardTrunfo }
           data-testid="trunfo-input"
-          value={ cardTrunfo }
         />
         <Button
           testId="save-button"
