@@ -81,7 +81,6 @@ class Form extends React.Component {
           data-testid="rare-input"
           value={ cardRare }
         >
-          <option value=""> </option>
           <option value="normal">Normal</option>
           <option value="raro">Raro</option>
           <option value="muito raro">Muito raro</option>
