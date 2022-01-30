@@ -7,6 +7,7 @@ class App extends React.Component {
     super();
 
     this.state = {
+      cards: [], // create an array for cards
       cardName: '',
       cardDescription: '',
       cardAttr1: '',
@@ -24,6 +25,45 @@ class App extends React.Component {
     const value = (target.type === 'checkbox') ? target.checked : target.value;
     this.setState({
       [target.name]: value,
+    });
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault(); // prevent form
+    const {
+      cards,
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+    } = this.state;
+
+    const newCard = { // Insert the values from the state to the new card.
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+    };
+
+    this.setState({
+      cards: [...cards, newCard], // Spread the old cards, and insert the new one.
+      cardName: '',
+      cardDescription: '',
+      cardAttr1: '0',
+      cardAttr2: '0',
+      cardAttr3: '0',
+      cardImage: '',
+      cardRare: 'normal',
+      cardTrunfo: false,
+      isSaveButtonDisabled: true,
     });
   }
 
@@ -80,6 +120,7 @@ class App extends React.Component {
           { ...this.state }
           onInputChange={ this.handleChange }
           isSaveButtonDisabled={ this.isFormValid() }
+          onSaveButtonClick={ this.handleSubmit }
         />
         <Card { ...this.state } />
       </div>
