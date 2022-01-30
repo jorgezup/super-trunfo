@@ -27,16 +27,6 @@ class App extends React.Component {
     });
   }
 
-  getArrayOfElementTypeOfStringFromState = () => {
-    const newArray = [];
-    Object.entries(this.state).forEach((entry) => {
-      if (entry[1] === '') {
-        newArray.push(entry);
-      }
-    });
-    return newArray;
-  }
-
   isValidString = (str) => !!str.length
 
   isBetweenMinAndMax = (number) => {
