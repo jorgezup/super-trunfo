@@ -120,6 +120,14 @@ class App extends React.Component {
     return cards.find((card) => card.cardTrunfo);
   }
 
+  setListOfCards = () => {
+    const { cards } = this.state;
+    if (!cards) return (<div />);
+    return cards.map((card, index) => (
+      <Card key={ index } { ...card } />
+    ));
+  }
+
   render() {
     return (
       <div>
@@ -131,6 +139,11 @@ class App extends React.Component {
           onSaveButtonClick={ this.handleSubmit }
         />
         <Card { ...this.state } />
+        <div>
+          {
+            this.setListOfCards()
+          }
+        </div>
       </div>
     );
   }
