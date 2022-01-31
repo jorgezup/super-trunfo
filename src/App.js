@@ -16,7 +16,7 @@ class App extends React.Component {
       cardImage: '',
       cardRare: '',
       cardTrunfo: false,
-      // hasTrunfo: false,
+      hasTrunfo: false,
       isSaveButtonDisabled: true,
     };
   }
@@ -40,6 +40,7 @@ class App extends React.Component {
       cardImage,
       cardRare,
       cardTrunfo,
+      hasTrunfo,
     } = this.state;
 
     const newCard = { // Insert the values from the state to the new card.
@@ -51,6 +52,7 @@ class App extends React.Component {
       cardImage,
       cardRare,
       cardTrunfo,
+      hasTrunfo,
     };
 
     this.setState({
@@ -63,6 +65,7 @@ class App extends React.Component {
       cardImage: '',
       cardRare: 'normal',
       cardTrunfo: false,
+      hasTrunfo: this.isHasTrunfo,
       isSaveButtonDisabled: true,
     });
   }
@@ -111,6 +114,11 @@ class App extends React.Component {
   }
 
   isFormValid = () => this.formValidation().some((validation) => validation === false)
+
+  isHasTrunfo = () => {
+    const { cards } = this.state;
+    return cards.find((card) => card.cardTrunfo);
+  }
 
   render() {
     return (
