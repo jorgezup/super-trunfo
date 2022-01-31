@@ -1,6 +1,7 @@
 import React from 'react';
 import Form from './components/Form';
 import Card from './components/Card';
+import Button from './components/Button';
 
 class App extends React.Component {
   constructor() {
@@ -16,7 +17,7 @@ class App extends React.Component {
       cardImage: '',
       cardRare: '',
       cardTrunfo: false,
-      hasTrunfo: false,
+      hasTrunfo: this.isHasTrunfo,
       isSaveButtonDisabled: true,
     };
   }
@@ -117,18 +118,38 @@ class App extends React.Component {
 
   isHasTrunfo = () => {
     const { cards } = this.state;
-    return cards.find((card) => card.cardTrunfo);
+    return cards.some((card) => card.cardTrunfo);
+  }
+
+  handleRemoveCard = (index) => {
+    const { cards } = this.state;
+    const cardsLeftOvers = cards.splice(index, 1);
+    this.setState({
+      ...cardsLeftOvers,
+      hasTrunfo: this.isHasTrunfo,
+    });
   }
 
   setListOfCards = () => {
     const { cards } = this.state;
     if (!cards) return (<div />);
     return cards.map((card, index) => (
-      <Card key={ index } { ...card } />
+      <div key={ index }>
+        <Card { ...card } />
+        <Button
+          key={ index }
+          testId="delete-button"
+          isDisabled={ false }
+          onClickButton={ () => this.handleRemoveCard(index) }
+        >
+          Excluir
+        </Button>
+      </div>
     ));
   }
 
   render() {
+    console.log(this.isHasTrunfo());
     return (
       <div>
         <h1>Tryunfo</h1>

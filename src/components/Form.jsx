@@ -20,6 +20,7 @@ class Form extends React.Component {
       onInputChange,
       onSaveButtonClick,
     } = this.props;
+    console.log(hasTrunfo());
     return (
       <form>
         <div>Nome</div>
@@ -87,7 +88,7 @@ class Form extends React.Component {
         </select>
 
         {
-          hasTrunfo === true
+          hasTrunfo()
             ? <p>Você já tem um Super Trunfo em seu baralho</p>
             : (
               <>
