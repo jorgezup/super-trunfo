@@ -149,7 +149,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.isHasTrunfo());
     return (
       <div>
         <h1>Tryunfo</h1>
