@@ -87,7 +87,7 @@ class Form extends React.Component {
         </select>
 
         {
-          hasTrunfo
+          hasTrunfo === true
             ? <p>Você já tem um Super Trunfo em seu baralho</p>
             : (
               <>
