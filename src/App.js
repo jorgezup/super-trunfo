@@ -2,6 +2,7 @@ import React from 'react';
 import Form from './components/Form';
 import Card from './components/Card';
 import Button from './components/Button';
+import Input from './components/Input';
 
 class App extends React.Component {
   constructor() {
@@ -19,6 +20,7 @@ class App extends React.Component {
       cardTrunfo: false,
       hasTrunfo: this.isHasTrunfo,
       isSaveButtonDisabled: true,
+      filter: '',
     };
   }
 
@@ -130,28 +132,32 @@ class App extends React.Component {
     });
   }
 
-  setListOfCards = () => {
+  setListOfCards = (params) => {
     const { cards } = this.state;
     if (!cards) return (<div />);
-    return cards.map((card, index) => (
-      <div key={ index }>
-        <Card { ...card } />
-        <Button
-          key={ index }
-          testId="delete-button"
-          isDisabled={ false }
-          onClickButton={ () => this.handleRemoveCard(index) }
-        >
-          Excluir
-        </Button>
-      </div>
-    ));
+    return cards
+      .filter((card) => card.cardName.includes(params))
+      .map((card, index) => (
+        <div key={ index }>
+          <Card { ...card } />
+          <Button
+            key={ index }
+            testId="delete-button"
+            isDisabled={ false }
+            onClickButton={ () => this.handleRemoveCard(index) }
+          >
+            Excluir
+          </Button>
+        </div>
+      ));
   }
 
   render() {
+    const { filter } = this.state;
     return (
       <div>
         <h1>Tryunfo</h1>
+
         <Form
           { ...this.state }
           onInputChange={ this.handleChange }
@@ -159,9 +165,19 @@ class App extends React.Component {
           onSaveButtonClick={ this.handleSubmit }
         />
         <Card { ...this.state } />
+        <div>Filtros de busca</div>
+        <Input
+          name="filter"
+          value={ filter }
+          type="text"
+          inputChange={ this.handleChange }
+          testId="name-filter"
+        />
         <div>
           {
-            this.setListOfCards()
+            !filter
+              ? this.setListOfCards('')
+              : this.setListOfCards(filter)
           }
         </div>
       </div>
