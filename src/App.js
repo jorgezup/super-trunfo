@@ -18,7 +18,7 @@ class App extends React.Component {
       cardImage: '',
       cardRare: '',
       cardTrunfo: false,
-      hasTrunfo: this.isHasTrunfo,
+      hasTrunfo: false,
       isSaveButtonDisabled: true,
       filter: '',
     };
@@ -43,8 +43,10 @@ class App extends React.Component {
       cardImage,
       cardRare,
       cardTrunfo,
-      hasTrunfo,
+      // hasTrunfo,
     } = this.state;
+
+    if (cardTrunfo) this.setState({ hasTrunfo: true });
 
     const newCard = { // Insert the values from the state to the new card.
       cardName,
@@ -55,7 +57,7 @@ class App extends React.Component {
       cardImage,
       cardRare,
       cardTrunfo,
-      hasTrunfo,
+      // hasTrunfo: !!cardTrunfo,
     };
 
     this.setState({
@@ -68,7 +70,7 @@ class App extends React.Component {
       cardImage: '',
       cardRare: 'normal',
       cardTrunfo: false,
-      hasTrunfo: this.isHasTrunfo,
+      // hasTrunfo: t
       isSaveButtonDisabled: true,
     });
   }
@@ -118,17 +120,21 @@ class App extends React.Component {
 
   isFormValid = () => this.formValidation().some((validation) => validation === false)
 
-  isHasTrunfo = () => {
-    const { cards } = this.state;
-    return cards.some((card) => card.cardTrunfo);
-  }
+  // isTrunfo = (cardToRemove) => {
+  //   const { cards } = this.state;
+  //   return cards.find((card, index) => {
+  //     if(index===cardToRemove)
+  //   });
+  // }
 
   handleRemoveCard = (index) => {
     const { cards } = this.state;
+    const cardRemoved = cards[index];
     const cardsLeftOvers = cards.splice(index, 1);
+
     this.setState({
       ...cardsLeftOvers,
-      hasTrunfo: this.isHasTrunfo,
+      hasTrunfo: !cardRemoved.cardTrunfo,
     });
   }
 
