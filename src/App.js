@@ -20,7 +20,11 @@ class App extends React.Component {
       cardTrunfo: false,
       hasTrunfo: false,
       isSaveButtonDisabled: true,
-      filter: '',
+      filter: undefined,
+      filterRarity: 'todas',
+      filterTrunfo: undefined,
+      filteredCards: undefined,
+      clickFilter: false,
     };
   }
 
@@ -138,11 +142,9 @@ class App extends React.Component {
     });
   }
 
-  setListOfCards = (params) => {
-    const { cards } = this.state;
-    if (!cards) return (<div />);
-    return cards
-      .filter((card) => card.cardName.includes(params))
+  setListOfCards = (array) => {
+    if (!array) return (<div />);
+    return array
       .map((card, index) => (
         <div key={ index }>
           <Card { ...card } />
@@ -158,8 +160,46 @@ class App extends React.Component {
       ));
   }
 
+  handleFilter = () => {
+    const { filter, filterRarity, filterTrunfo, cards } = this.state;
+
+    console.log({
+      filter,
+      filterRarity,
+      filterTrunfo,
+    });
+    let result = cards;
+    console.log('cards', cards);
+
+    result = cards.filter((card) => card.cardName.includes(filter));
+    // if (filterRarity.toLocaleLowerCase() !== 'todas') {
+    //   result = cards.filter((card) => card.cardRare
+    //   === filterRarity.toLocaleLowerCase())
+    //     .filter((card) => card.cardName.includes(filter));
+    //   console.log('resultRarity', result);
+    // } else {
+    //   console.log(filter);
+    // }
+    // // if (filterTrunfo) {
+    // //   result = cards.filter((card) => card.cardTrunfo);
+    // // }
+
+    console.log('---------');
+    console.log('reuslt', result);
+
+    this.setState({
+      filteredCards: result || cards,
+      clickFilter: !this.clickFilter,
+    });
+  }
+
+  setOnScreen = () => {
+    this.setState = ({ filteredCards: undefined });
+  }
+
   render() {
-    const { filter } = this.state;
+    const { filter, filterRarity, cards, filteredCards, clickFilter } = this.state;
+    console.log('filtered', filteredCards);
     return (
       <div>
         <h1>Tryunfo</h1>
@@ -179,11 +219,26 @@ class App extends React.Component {
           inputChange={ this.handleChange }
           testId="name-filter"
         />
+        <select
+          name="filterRarity"
+          onChange={ this.handleChange }
+          data-testid="rare-filter"
+          value={ filterRarity }
+        >
+          <option value="todas">Todas</option>
+          <option value="normal">Normal</option>
+          <option value="raro">Raro</option>
+          <option value="muito raro">Muito raro</option>
+        </select>
+        <button onClick={ this.handleFilter } type="button">Buscar</button>
         <div>
           {
-            !filter
-              ? this.setListOfCards('')
-              : this.setListOfCards(filter)
+
+            // this.setListOfCards(cards)
+            clickFilter
+              ? this.setListOfCards(cards)
+              : this.setListOfCards(filteredCards)
+
           }
         </div>
       </div>
